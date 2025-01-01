@@ -34,20 +34,11 @@ int leap_years_before(int year) {
 const unsigned char MONTH_WIDTH = 25;
 
 const char* MONTHS[] = {
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+    "January", "February", "March", 
+    "April", "May", "June", 
+    "July", "August", "September", 
+    "October", "November","December"
 };
-
 
 const char* DAYS[] = {
     "Mo",
@@ -87,12 +78,7 @@ int get_week(int* currDate, int month, int year) {
     int firstDay = daysSinceZero % 7;
     int daysPassed = days_passed(month) + *currDate;
     
-    //int weekFirst = (firstDay + daysPassed - 1) % 7;
     int week = (daysPassed + firstDay - 1) / 7 + 1;
-    int day = *currDate;
-    if(is_leap_year(year)) day++;
-    if(day == 31) day = 25;
-
 
     if(week == 1 && firstDay > 3) {
 	if(firstDay == 4) week = 53;
@@ -170,9 +156,6 @@ void print_calendar(int year, int cols) {
 int main() {
     int year;
     
-    /*
-     * Year input and validation loop
-     */
     while(1) {
 	printf("Enter year: ");
 	if(scanf("%d", &year)) {
@@ -200,8 +183,6 @@ int main() {
 	cols = w.ws_col / MONTH_WIDTH;
     }
     
-    //printf("Window width allows for %d columns..\n", cols);
-    
     for(int i = 0; i < cols; i++) {
 	printf("-------------------------");
     }
@@ -211,5 +192,4 @@ int main() {
     print_calendar(year, cols);
 
     return 0;
-
 }
