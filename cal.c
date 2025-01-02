@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <sys/ioctl.h> 
-#include <unistd.h>
 
 int LENGTH[] = {
     31, 28, 31, 30, 31, 30, 
@@ -177,7 +176,7 @@ int main() {
     struct winsize w; 
     int cols;
 
-    if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) != 0) {
+    if(ioctl(fileno(stdout), TIOCGWINSZ, &w) != 0) {
 	cols = MONTH_WIDTH;
     } else {
 	cols = w.ws_col / MONTH_WIDTH;
@@ -186,8 +185,7 @@ int main() {
     for(int i = 0; i < cols; i++) {
 	printf("-------------------------");
     }
-    printf("\n");
-    printf("%*s%4d\n", ((MONTH_WIDTH * cols)/2-2), "", year);
+    printf("\n%*s%4d\n", ((MONTH_WIDTH * cols)/2-2), "", year);
 
     print_calendar(year, cols);
 
